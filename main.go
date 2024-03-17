@@ -3,7 +3,6 @@ package main
 // 2 routes, GET and POST
 
 import (
-	"fmt"
 	"log"
 	"strings"
 
@@ -35,8 +34,12 @@ func main() {
 
 	app := fiber.New()
 
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Healthy")
+	})
+
 	app.Get("/badge", func(c *fiber.Ctx) error {
-		return c.SendString(fmt.Sprintf("Coverage: %f", coverage.Coverage))
+		return c.JSON(coverage)
 	})
 
 	app.Post("/badge", func(c *fiber.Ctx) error {
